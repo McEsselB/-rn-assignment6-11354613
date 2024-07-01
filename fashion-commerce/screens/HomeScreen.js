@@ -10,9 +10,11 @@ const menuIcon = require('../assets/images/Menu.png');
 const logoIcon = require('../assets/images/Logo.png');
 const searchIcon = require('../assets/images/Search.png');
 const shoppingBagIcon = require('../assets/images/shoppingBag.png');
+const gridIcon = require('../assets/images/Listview.png');
+const filterIcon = require('../assets/images/Filter.png');
 
 const products = [
-  { id: '1', name: 'Office Wear', price: '$120', detail: 'reversible angora cardigan',image: require('../assets/images/dress1.png') },
+  { id: '1', name: 'Office Wear', price: '$120', detail: 'reversible angora cardigan', image: require('../assets/images/dress1.png') },
   { id: '2', name: 'Black', price: '$120', detail: 'reversible angora cardigan', image: require('../assets/images/dress2.png') },
   { id: '3', name: 'Church Wear', price: '$120', detail: 'reversible angora cardigan', image: require('../assets/images/dress3.png') },
   { id: '4', name: 'Lumeri', price: '$120', detail: 'reversible angora cardigan', image: require('../assets/images/dress4.png') },
@@ -41,10 +43,20 @@ const HomeScreen = ({ navigation }) => {
     await AsyncStorage.setItem('cart', JSON.stringify(newCart));
   };
 
+  const handleGridPress = () => {
+    console.log('Grid button pressed');
+    
+  };
+
+  const handleFilterPress = () => {
+    console.log('Filter button pressed');
+    
+  };
+
   const renderHeader = () => (
     <View style={styles.header}>
       <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-        <Image source={menuIcon} style={styles.menuicon} />
+        <Image source={menuIcon} style={styles.menuIcon} />
       </TouchableOpacity>
       <Image source={logoIcon} style={styles.logo} />
       <View style={styles.rightIcons}>
@@ -58,14 +70,24 @@ const HomeScreen = ({ navigation }) => {
     </View>
   );
 
+  const renderOurStoryHeader = () => (
+    <View style={styles.ourStoryHeader}>
+      <Text style={styles.ourStoryText}>OUR STORY</Text>
+      <View style={styles.storyIcons}>
+        <TouchableOpacity onPress={handleGridPress}>
+          <Image source={gridIcon} style={styles.icon} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleFilterPress}>
+          <Image source={filterIcon} style={styles.icon} />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+
   return (
     <SafeAreaView style={styles.safeArea}>
-        {renderHeader()}
-        <View>
-           <Text>
-              OUR STORY
-           </Text>
-        </View>
+      {renderHeader()}
+      {renderOurStoryHeader()}
       <FlatList
         data={products}
         renderItem={({ item }) => (
@@ -92,26 +114,44 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    backgroundColor: '#fff',
+     marginTop: 20,
     
-   },
-  
-   menuIcon: {
-     marginLeft: 100
+    
   },
-  
-  icon: {
-    width: 22,
-     height: 22,
-    margin: 10
+  menuIcon: {
+    width: 28,
+    height: 24,
   },
   logo: {
     width: 120,
     height: 30,
-     resizeMode: 'contain',
-    color: 'black'
+    resizeMode: 'contain',
   },
   rightIcons: {
+    flexDirection: 'row',
+  },
+  icon: {
+    width: 26,
+    height: 26,
+    marginHorizontal: 10,
+  },
+  ourStoryHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+     backgroundColor: '#fff',
+    marginBottom: 7
+  },
+  ourStoryText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  storyIcons: {
     flexDirection: 'row',
   },
 });
