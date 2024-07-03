@@ -1,5 +1,3 @@
-// screens/HomeScreen.js
-
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, StyleSheet, SafeAreaView, Text, Image, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -17,11 +15,12 @@ const products = [
   { id: '1', name: 'Office Wear', price: '$120', detail: 'reversible angora cardigan', image: require('../assets/images/dress1.png') },
   { id: '2', name: 'Black', price: '$120', detail: 'reversible angora cardigan', image: require('../assets/images/dress2.png') },
   { id: '3', name: 'Church Wear', price: '$120', detail: 'reversible angora cardigan', image: require('../assets/images/dress3.png') },
-  { id: '4', name: 'Lumeri', price: '$120', detail: 'reversible angora cardigan', image: require('../assets/images/dress4.png') },
+  { id: '4', name: 'Lamerie', price: '$120', detail: 'reversible angora cardigan', image: require('../assets/images/dress4.png') },
   { id: '5', name: 'ZWN', price: '$120', detail: 'reversible angora cardigan', image: require('../assets/images/dress5.png') },
   { id: '6', name: 'Lopo', price: '$120', detail: 'reversible angora cardigan', image: require('../assets/images/dress6.png') },
-  { id: '7', name: 'Iame', price: '$120', detail: 'reversible angora cardigan', image: require('../assets/images/dress6.png') },
-  { id: '8', name: 'ZWN', price: '$120', detail: 'reversible angora cardigan', image: require('../assets/images/dress7.png') },
+   { id: '7', name: 'Iame', price: '$120', detail: 'reversible angora cardigan', image: require('../assets/images/dress7.png') },
+    { id: '8', name: 'Iame', price: '$120', detail: 'reversible angora cardigan', image: require('../assets/images/dress3.png') },
+
 ];
 
 const HomeScreen = ({ navigation }) => {
@@ -45,12 +44,10 @@ const HomeScreen = ({ navigation }) => {
 
   const handleGridPress = () => {
     console.log('Grid button pressed');
-    
   };
 
   const handleFilterPress = () => {
     console.log('Filter button pressed');
-    
   };
 
   const renderHeader = () => (
@@ -91,9 +88,9 @@ const HomeScreen = ({ navigation }) => {
       <FlatList
         data={products}
         renderItem={({ item }) => (
-          <ProductCard product={item} onAddToCart={addToCart} />
+          <ProductCard key={item.id} product={item} onAddToCart={addToCart} />
         )}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()} // Ensure unique keys
         numColumns={2}
         contentContainerStyle={styles.flatListContent}
       />
@@ -117,9 +114,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     backgroundColor: '#fff',
-     marginTop: 20,
-    
-    
+    marginTop: 20,
   },
   menuIcon: {
     width: 28,
@@ -144,8 +139,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 20,
     paddingVertical: 10,
-     backgroundColor: '#fff',
-    marginBottom: 7
+    backgroundColor: '#fff',
+    marginBottom: 7,
   },
   ourStoryText: {
     fontSize: 24,
